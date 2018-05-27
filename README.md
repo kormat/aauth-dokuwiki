@@ -8,19 +8,19 @@ This module is *heavily* based on the discourse integration that is already in
 allianceauth.
 
 To install:
-  Run `pip install .` in the top directory.
-
-Add the following entries to `settings/local.py`:
-```
-DOKUWIKI_URL = 'https://doku.example.com'
-## Set this to a long random string.
-DOKUWIKI_SSO_SECRET = ''
-## Default location/name:
-DOKUWIKI_GROUP_PATH = '/tmp/dokuwiki_groups.csv'
-## Uncomment to see debug logging:
-#LOGGING['loggers']['aauthdokuwiki'] = {
-#    'handlers': ['log_file', 'console', 'notifications'],
-#    'level': 'DEBUG',
-#    'propagate': False,
-#}
-```
+- Run `pip install .` in the top directory.
+- Add `'aauthdokuwiki'` to `INSTALLED_APPS` in `settings/local.py`
+- Add the following entries to `settings/local.py`:
+    ```
+    DOKUWIKI_URL = 'https://doku.example.com'
+    ## Set this to a long random string.
+    DOKUWIKI_SSO_SECRET = ''
+    ## Default location/name:
+    DOKUWIKI_GROUP_PATH = '/tmp/dokuwiki_groups.csv'
+    ## Uncomment to see debug logging:
+    #LOGGING['loggers']['aauthdokuwiki'] = {
+    #    'handlers': ['log_file', 'console', 'notifications'],
+    #    'level': 'DEBUG',
+    #    'propagate': False,
+    #}
+    ```
