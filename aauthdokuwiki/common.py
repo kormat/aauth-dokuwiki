@@ -10,11 +10,8 @@ def get_username(user):
     from .auth_hooks import DokuwikiService
     return NameFormatter(DokuwikiService(), user).format_name()
 
-# Replace space and : with _, and strip single/double quotes and commas.
-_sanitize_table = str.maketrans(' :', '__', '\'",')
-
 def _sanitize(name):
-    return name.translate(_sanitize_table)
+    return "".join([c for c in name if c.isalnum()])
 
 def get_sanitized_username(user):
     return _sanitize(get_username(user))

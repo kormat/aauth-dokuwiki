@@ -88,15 +88,7 @@ def dokuwiki_sso(request):
     h = hmac.new(key, return_payload, digestmod=hashlib.sha256)
     query_string = urlencode({'sso': return_payload, 'sig': h.hexdigest()})
 
-    # Record activation and queue group sync
-    if not DokuwikiTasks.has_account(request.user):
-        dokuwiki_user = DiscourseUser()
-        dokuwiki_user.user = request.user
-        dokuwiki_user.enabled = True
-        dokuwiki_user.save()
-        DokuwikiTasks.update_groups.delay()
-
     # Redirect back to Dokuwiki
-    url = '%s/session/sso_login' % settings.DOKUWIKI_URL
+    url = '%s/lib/plugins/discoursesso/sso_login.php' % settings.DOKUWIKI_URL
     return redirect('%s?%s' % (url, query_string))
 

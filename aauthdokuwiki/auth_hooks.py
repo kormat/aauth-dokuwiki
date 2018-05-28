@@ -22,21 +22,12 @@ class DokuwikiService(ServicesHook):
         self.access_perm = ACCESS_PERM_FULL
         self.name_format = '{character_name}'
 
-    def delete_user(self, user, notify_user=False):
-        logger.debug('Deleting user %s %s account' % (user, self.name))
-        return DokuwikiTasks.delete_user(user, notify_user=notify_user)
-
     def update_groups(self, user):
         logger.debug('Processing %s groups for %s' % (self.name, user))
-        if DokuwikiTasks.has_account(user):
+        if self.service_active_for_user(user):
             # XXX(kormat): As any update involves regenerating the CSV file,
             # just update all groups.
             DokuwikiTasks.update_all_groups.delay()
-
-    def validate_user(self, user):
-        logger.debug('Validating user %s %s account' % (user, self.name))
-        if DokuwikiTasks.has_account(user) and not self.service_active_for_user(user):
-            self.delete_user(user, notify_user=True)
 
     def update_all_groups(self):
         logger.debug('Update all %s groups called' % self.name)
