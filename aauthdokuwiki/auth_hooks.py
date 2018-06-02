@@ -22,6 +22,13 @@ class DokuwikiService(ServicesHook):
         self.access_perm = ACCESS_PERM_FULL
         self.name_format = '{character_name}'
 
+    def validate_user(self, user):
+        logger.debug('Validating user %s %s account' % (user, self.name))
+        if self.service_active_for_user(user):
+            # XXX(kormat): As any update involves regenerating the CSV file,
+            # just update all groups.
+            DokuwikiTasks.update_all_groups.delay()
+
     def update_groups(self, user):
         logger.debug('Processing %s groups for %s' % (self.name, user))
         if self.service_active_for_user(user):
