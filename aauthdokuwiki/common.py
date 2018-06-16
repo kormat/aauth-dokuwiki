@@ -2,7 +2,7 @@ from django.conf import settings
 
 from allianceauth.services.hooks import NameFormatter
 
-NAME = "dokuwiki"
+NAME = "aauthdokuwiki"
 ACCESS_PERM = "access_dokuwiki"
 ACCESS_PERM_FULL = "%s.%s" % (NAME, ACCESS_PERM)
 
